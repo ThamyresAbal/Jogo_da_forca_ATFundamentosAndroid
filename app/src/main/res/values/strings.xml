@@ -1,3 +1,47 @@
 <resources>
     <string name="app_name">Jogo_da_forca_ATFundamentosAndroid</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="tab_text_1">Home</string>
+    <string name="tab_text_2">Regras do jogo</string>
+    <string name="regras_jogo">
+        O jogo da forca é um jogo em que o jogador tem que acertar qual é a palavra proposta, tendo
+        como dica o número de letras e/ou tema ligado à palavra. \n\n
+        A partida é ganha se a palavra é adivinhada. Caso o jogador não descubra qual palavra é
+        ele que perde.\n\n
+        Se o jogador ganha a partida é exibida uma nova palavra até que erre, ocasionando o término
+        do jogo.\n\n
+        São 5 chances de errar. \n\n
+        Para começar o jogo se desenha uma base e um risco correspondente ao lugar de cada letra.
+        Por exemplo, para a palavra "MERCADO", se escreve:\n \n
+
+            M E R C A D O ------> _ _ _ _ _ _ _\n\n
+
+        O jogador que tenta adivinhar a palavra deve ir digitando as letras que podem existir na palavra.
+        Cada letra que ele acerta é escrita no espaço correspondente.\n \n
+
+            M E R C A D O → M _ _ C A _ _\n \n
+
+        Caso a letra não exista nessa palavra, será exibido um alerta de tentativas.\n\n
+        Todas as letras digitadas serão exibidas na tela.\n\n
+        Ao final será exibido um resumo das partidas e quantas palavras acertou.\n
+    </string>
+    <string name="home_jogo">Olá!\n\n Seja bem vindo ao jogo da forca. \n\n Digite seu nome para começar</string>
 </resources>

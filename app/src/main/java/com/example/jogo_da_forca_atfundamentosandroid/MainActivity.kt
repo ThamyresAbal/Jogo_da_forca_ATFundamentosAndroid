@@ -1,107 +1,51 @@
 package com.example.jogo_da_forca_atfundamentosandroid
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.widget.Toast
+import android.provider.Telephony
+import android.service.carrier.CarrierMessagingService
+import android.telephony.SmsManager
 import androidx.appcompat.app.AppCompatActivity
-import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.viewpager.widget.ViewPager
+import com.example.myapplication.ui.main.SectionsPagerAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
+import java.net.URI
+
 
 class MainActivity : AppCompatActivity() {
-
-     lateinit var listaPalavrasAcertadas: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //var VM = ViewModelProviders.of(this).get(PalavrasViewModel::class.java)
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        val viewPager: ViewPager = findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        tabs.setupWithViewPager(viewPager)
+        val fab: FloatingActionButton = findViewById(R.id.fab)
 
-        //falta ver lance o enter
-        //falta ver proxima palavra
-
-        //exibe um elemento aleatorio da lista
-        var texto =  lista.random().toUpperCase()
-        var tentativas = 5
-        var textoOculto = texto
-        var caracteresCertos = "" //concatenar cada caracter que estiver certo
-        var letrasUsadas = ""
-
-        for (caracter in texto){
-            textoOculto = textoOculto.replace(caracter.toString(), "_ ", true)
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Convide seus amigos.", Snackbar.LENGTH_LONG)
+                .setAction("SMS", null).show()
+            composeMmsMessage("teste123", Uri.EMPTY)
         }
-        textViewPalavraDaVez.text = textoOculto
 
-
-        button.setOnClickListener() {
-            //Ao clicar no botão o método onClick será executado.
-            val letraPorLetra = editTextLetra.text.toString().toUpperCase()
-
-            if (letrasUsadas.contains(letraPorLetra)) {
-                Toast.makeText(this,"Você já usou esta letra", Toast.LENGTH_SHORT).show()
-            }else {
-                letrasUsadas += letraPorLetra
-                textViewLetrasUsadas.text = letrasUsadas
-                if (tentativas > 0) {
-                    if (letraPorLetra.length == 1) {
-                        if (texto.contains(letraPorLetra)) {
-                            caracteresCertos += letraPorLetra
-                            textoOculto =
-                                texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
-                            //Percorrendo verificando quais caracteres acertou
-                            for (caracter in texto) {
-                                //remontando a palavra do jogo mostrando os caracteres certos e ocultando
-                                //aqueles que ainda não acertaram
-                                if (caracteresCertos.contains(caracter.toString(), true)) {
-                                    //Verificar para mostrar somente as letras certas
-                                    //acertou a letra
-                                    textoOculto = textoOculto.replace(
-                                        caracter.toString(),
-                                        caracter.toString(),
-                                        true
-                                    )
-                                    Toast.makeText(this, "Parabéns!", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    //errou
-                                    //Ocultar os outros caracteres
-                                    textoOculto =
-                                        textoOculto.replace(caracter.toString(), "_ ", true)
-                                }
-                            }
-                            if (!textoOculto.contains("_")) {
-                                Toast.makeText(
-                                    this,
-                                    "Acertou! Vamos a próxima palavra.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                listaPalavrasAcertadas.add(texto)
-                                 texto = lista.random().toUpperCase()
-                            }
-                            textViewPalavraDaVez.text = textoOculto
-                            editTextLetra.text.clear()
-
-                        } else {
-                            tentativas -= 1
-                            if (tentativas == 0) {
-                                textViewPalavraDaVez.text = texto
-                                textViewErro.text = "Fim de jogo!"
-                            }
-                            editTextLetra.text.clear()
-                            Toast.makeText(
-                                this,
-                                "Errou! Você tem $tentativas",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } else {
-                        Toast.makeText(
-                            this,
-                            "Apenas uma letra por vez!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
+    }fun composeMmsMessage(message: String, attachment: Uri) {
+        val smsManager: SmsManager = SmsManager.getDefault()
+        smsManager.sendTextMessage("987654321", null, "Texto SMS",
+            null, null)
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            data = Uri.parse("teste:")  // This ensures only SMS apps respond
+            putExtra("oioi", message)
+            putExtra(Intent.EXTRA_STREAM, attachment)
         }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+
     }
 }
-

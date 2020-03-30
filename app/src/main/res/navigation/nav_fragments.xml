@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_fragments"
+    app:startDestination="@id/fragmentResumo">
+    <fragment
+        android:id="@+id/fragmentResumo"
+        android:name="com.example.jogo_da_forca_atfundamentosandroid.Fragments.FragmentResumo"
+        android:label="fragment_resumo"
+        tools:layout="@layout/fragment_resumo" />
+</navigation>

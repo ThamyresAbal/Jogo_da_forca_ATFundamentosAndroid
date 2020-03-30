@@ -5,7 +5,7 @@ import java.util.*
 
 class PalavrasViewModel() : ViewModel() {
 
-    //
+
     //   val palavrasUtilizadas: MutableList<String>,
     //   val pontuacao: MutableList<Int>,
 
