@@ -25,6 +25,12 @@
         <Button
             android:id="@+id/buttonIniciarJogo"
             android:layout_width="wrap_content"
+            android:paddingLeft="4dp"
+            android:minWidth="40dp"
+            android:paddingRight="4dp"
+            android:paddingTop="8dp"
+            android:minHeight="32dp"
+            android:paddingBottom="8dp"
             android:layout_height="wrap_content"
             android:text="Jogar"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +63,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="1.0" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="175dp"
+        android:layout_height="143dp"
+        android:src="@drawable/jogo"
+        android:contentDescription="Imagem de uma forca"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

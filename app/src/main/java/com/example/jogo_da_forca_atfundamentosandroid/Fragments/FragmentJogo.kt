@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
+import ViewModel.DadosViewModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_jogo.*
 
 /**
@@ -25,8 +26,18 @@ class FragmentJogo : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jogo, container, false)
-        Jogo()
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    var palavrasViewModel : DadosViewModel? = null
+    activity?.let {
+        palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
+    }
+        Jogo()
+
+    }
+
     fun Jogo(){
         //falta ver lance o enter
         //falta ver proxima palavra

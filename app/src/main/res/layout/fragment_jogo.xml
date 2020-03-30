@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Fragments.FragmentJogo">
 
     <TextView
         android:id="@+id/textViewPalavraDaVez"
@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:contentDescription="Digite uma letra"
         android:hint="Digite uma letra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,8 +38,10 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:autoSizeTextType="uniform"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:autoSizeTextType="uniform"
+        android:contentDescription="Tentar"
         android:text="Tentar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +50,7 @@
 
     <TextView
         android:id="@+id/textViewErro"
+        android:contentDescription="Fim de jogo! Tente novamente."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
