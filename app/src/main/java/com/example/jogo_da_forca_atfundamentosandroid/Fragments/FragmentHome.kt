@@ -27,6 +27,8 @@ class FragmentHome : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+
+        Toast.makeText(activity?.baseContext,"Digite seu nome",Toast.LENGTH_SHORT).show()
 }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +45,7 @@ class FragmentHome : Fragment() {
             dadosViewModel?.dadoUsuario= DadosModel(
                 editTextNomeJogador.text.toString()
             )
-            findNavController().navigate(R.id.fragmentJogo)
+            findNavController().navigate(R.id.fragmentSobreJogo)
 
         }
 
