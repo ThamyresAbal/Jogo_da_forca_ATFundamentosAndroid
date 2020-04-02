@@ -3,16 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_fragments"
-    app:startDestination="@id/fragmentHome">
-    <fragment
-        android:id="@+id/fragmentHome"
-        android:name="com.example.jogo_da_forca_atfundamentosandroid.Fragments.FragmentHome"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_fragmentHome_to_fragmentJogo"
-            app:destination="@id/fragmentJogo" />
-    </fragment>
+    app:startDestination="@id/fragmentJogo">
     <fragment
         android:id="@+id/fragmentJogo"
         android:name="com.example.jogo_da_forca_atfundamentosandroid.Fragments.FragmentJogo"
@@ -27,13 +18,4 @@
         android:name="com.example.jogo_da_forca_atfundamentosandroid.Fragments.FragmentResumo"
         android:label="fragment_resumo"
         tools:layout="@layout/fragment_resumo" />
-    <fragment
-        android:id="@+id/fragmentSobreJogo"
-        android:name="com.example.jogo_da_forca_atfundamentosandroid.Fragments.FragmentSobreJogo"
-        android:label="fragment_sobre_jogo"
-        tools:layout="@layout/fragment_sobre_jogo" >
-        <action
-            android:id="@+id/action_fragmentSobreJogo_to_fragmentHome"
-            app:destination="@id/fragmentHome" />
-    </fragment>
 </navigation>

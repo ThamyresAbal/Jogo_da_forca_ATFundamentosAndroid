@@ -5,7 +5,7 @@ import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 
 class DadosViewModel() : ViewModel() {
         var dadoUsuario : DadosModel? = null
-    //   val palavrasUtilizadas: MutableList<String>,
-    //   val pontuacao: MutableList<Int>,
+     //  val palavrasUtilizadas: MutableList<String>? = null,
+      // val pontuacao: MutableList<Int>? = null
 
 }

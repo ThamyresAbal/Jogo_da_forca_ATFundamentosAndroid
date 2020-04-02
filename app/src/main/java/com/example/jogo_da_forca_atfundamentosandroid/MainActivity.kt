@@ -10,6 +10,7 @@ import com.example.myapplication.ui.main.DeslizePagerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,26 +24,8 @@ class MainActivity : AppCompatActivity() {
         //viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        viewPager.adapter   = DeslizePagerAdapter(supportFragmentManager)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-
-        val model = ViewModelProviders.of(this)[DadosViewModel::class.java]
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Dicas", Snackbar.LENGTH_LONG)
-                .setAction("Dicas", null).show()
-           // searchWeb("imagem $texto")
-            }
-
+        viewPager.adapter = DeslizePagerAdapter(supportFragmentManager)
 
     }
-    /*fun searchWeb(query: String) {
-        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
-            putExtra(SearchManager.QUERY, query)
-        }
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
-        }
-    }*/
 }
 

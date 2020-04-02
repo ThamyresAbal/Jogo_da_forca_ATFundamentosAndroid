@@ -43,5 +43,5 @@
         Todas as letras digitadas serão exibidas na tela.\n\n
         Ao final será exibido um resumo das partidas e quantas palavras acertou.\n
     </string>
-    <string name="home_jogo">Olá!\n\n Seja bem vindo ao jogo da forca. \n\n Digite seu nome para começar</string>
+    <string name="home_jogo">Olá!\n\n Seja bem vindo ao jogo da forca. \n\n Digite seu nome para continuar.</string>
 </resources>

@@ -5,38 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.FragmentHome">
-<androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            style="@style/textFormat"
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_marginTop="180dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/home_jogo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/buttonIniciarJogo"
+            android:id="@+id/buttonIniciar"
             android:layout_width="wrap_content"
-            android:paddingLeft="4dp"
-            android:minWidth="40dp"
-            android:paddingRight="4dp"
-            android:paddingTop="8dp"
-            android:minHeight="32dp"
-            android:paddingBottom="8dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
             android:text="Jogar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="parent" />
+
 
         <EditText
             android:id="@+id/editTextNomeJogador"
@@ -47,15 +30,25 @@
             android:ems="10"
             android:hint="Digite seu nome"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/buttonIniciarJogo"
+            app:layout_constraintBottom_toTopOf="@+id/buttonIniciar"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
+            android:id="@+id/textView"
             style="@style/textFormat"
+            android:layout_marginTop="32dp"
+            android:text="@string/home_jogo"
+            app:layout_constraintEnd_toEndOf="@+id/editTextNomeJogador"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+        <TextView
             android:id="@+id/textView2"
-            android:layout_marginBottom="8dp"
+            style="@style/textFormat"
             android:text="Nome"
             app:layout_constraintBottom_toTopOf="@+id/editTextNomeJogador"
             app:layout_constraintEnd_toEndOf="@+id/editTextNomeJogador"
@@ -64,17 +57,19 @@
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layout_constraintVertical_bias="1.0" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="175dp"
-        android:layout_height="143dp"
-        android:src="@drawable/jogo"
-        android:contentDescription="Imagem de uma forca"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="175dp"
+            android:layout_height="143dp"
+            android:layout_marginTop="150dp"
+            android:contentDescription="Imagem de uma forca"
+            android:src="@drawable/jogo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

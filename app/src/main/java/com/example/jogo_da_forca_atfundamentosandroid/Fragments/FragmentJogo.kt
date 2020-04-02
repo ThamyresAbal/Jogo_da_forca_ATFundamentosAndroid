@@ -11,6 +11,8 @@ import ViewModel.DadosViewModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_jogo.*
 
 /**
@@ -30,10 +32,10 @@ class FragmentJogo : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    var palavrasViewModel : DadosViewModel? = null
-    activity?.let {
-        palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
-    }
+        var palavrasViewModel : DadosViewModel? = null
+        activity?.let {
+            palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
+        }
         Jogo()
 
     }
@@ -53,7 +55,7 @@ class FragmentJogo : Fragment() {
             textoOculto = textoOculto.replace(caracter.toString(), "_ ", true)
         }
         textViewPalavraDaVez.text = textoOculto
-        button.setOnClickListener() {
+        buttonTentativa.setOnClickListener() {
             //Ao clicar no botão o método onClick será executado.
             val letraPorLetra = editTextLetra.text.toString().toUpperCase()
 
