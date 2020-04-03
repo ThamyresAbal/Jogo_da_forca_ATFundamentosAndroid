@@ -44,6 +44,7 @@ class FragmentHome : Fragment() {
         buttonIniciar.setOnClickListener {
             if (editTextNomeJogador.text.isNullOrBlank())
                 Toast.makeText(activity?.baseContext, "Digite seu nome", Toast.LENGTH_SHORT).show()
+
             palavrasViewModel?.dadoUsuario = DadosModel(
                 editTextNomeJogador.text.toString()
             )

@@ -1,16 +1,17 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Adapter
 
-import ViewModel.Temporaria
+import ViewModel.DadosViewModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.R
 import kotlinx.android.synthetic.main.fragment_resumo.view.*
 
 class DadosRecycleAdapter(
-    val dadosRecycleView: List<Temporaria>
+    val dadosRecycleView: MutableList<DadosModel>?
 ) :RecyclerView.Adapter<DadosRecycleAdapter.DadosViewHolder>(){
 
     class DadosViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -30,11 +31,12 @@ class DadosRecycleAdapter(
         return dadosViewHolder
     }
 
-    override fun getItemCount(): Int = 5// dadosRecycleView.size
+    override fun getItemCount(): Int = dadosRecycleView!!.size // dadosRecycleView.size
 
     override fun onBindViewHolder(holder: DadosViewHolder, position: Int) {
-        val dado = dadosRecycleView[position]
+        val dado = dadosRecycleView!![position]
         holder.nome.text = dado.nome
-        holder.palavras.text = dado.palavras
+        //holder.palavras.text = dado.palavra.get()
     }
 }
+

@@ -7,13 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import ViewModel.DadosViewModel
-import ViewModel.Temporaria
-import android.widget.Toast
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.jogo_da_forca_atfundamentosandroid.Adapter.DadosRecycleAdapter
-import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
 import kotlinx.android.synthetic.main.fragment_resumo.*
@@ -38,12 +33,8 @@ class FragmentResumo : Fragment() {
         activity?.let {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
 
-            var lista = mutableListOf(
-                Temporaria("thi@go.com", "teste"),
-                Temporaria("thi@go.com", "teste")
-            )
 
-            var dadosAdapter = DadosRecycleAdapter(lista)
+            var dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value)
             rcyVwHome.adapter = dadosAdapter
             rcyVwHome.layoutManager = LinearLayoutManager(context)
 
