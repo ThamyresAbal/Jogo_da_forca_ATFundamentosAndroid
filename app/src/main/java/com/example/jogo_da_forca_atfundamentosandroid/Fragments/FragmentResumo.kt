@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import ViewModel.DadosViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.jogo_da_forca_atfundamentosandroid.Adapter.DadosRecycleAdapter
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
-import kotlinx.android.synthetic.main.fragment_resumo.*
 
 /**
  * A simple [Fragment] subclass.
@@ -32,14 +29,14 @@ class FragmentResumo : Fragment() {
         var palavrasViewModel: DadosViewModel? = null
         activity?.let {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
-
+/*
 
             var dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value)
             rcyVwHome.adapter = dadosAdapter
             rcyVwHome.layoutManager = LinearLayoutManager(context)
 
           //  itemTouchHelper.attachToRecyclerView(rcyVwHome)
-
+*/
         }
     }
 }

@@ -42,7 +42,7 @@
             style="@style/textFormat"
             android:layout_marginTop="32dp"
             android:textAlignment="center"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:autoSizeTextType="uniform"
             android:text="@string/home_jogo"
             app:layout_constraintEnd_toEndOf="@+id/editTextNomeJogador"

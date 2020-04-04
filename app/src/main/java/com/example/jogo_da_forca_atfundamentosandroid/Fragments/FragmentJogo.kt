@@ -8,7 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import ViewModel.DadosViewModel
+import android.content.Intent
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
+import com.example.jogo_da_forca_atfundamentosandroid.MainActivity
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
 
@@ -17,6 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_jogo.*
+import kotlin.properties.Delegates
 
 /**
  * A simple [Fragment] subclass.
@@ -24,6 +29,10 @@ import kotlinx.android.synthetic.main.fragment_jogo.*
 class FragmentJogo : Fragment() {
 
     private lateinit var listaPalavrasAcertadas: DadosViewModel
+    private var mudar by Delegates.notNull<Boolean>()
+
+    private lateinit var jogar: String
+    private lateinit var escolha: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,47 +47,61 @@ class FragmentJogo : Fragment() {
         activity?.let {
             listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
         }
-
-
         Jogo()
-
-
     }
 
-    fun Volta(){
-
-        Toast.makeText(activity?.baseContext, "Mizeravi", Toast.LENGTH_LONG).show()
-        /*var clicou :Boolean =true
-        buttonTentativa.setText( "Jogar denovo")
-        while (clicou){
-            buttonTentativa.setOnClickListener{
+    fun ConfigracaoBotao(flag:String){
+        if (flag.contains("tentar")) {
+            buttonTentativa.text = "Tentar"
+        }else{
+            if (flag.contains("continuar")) {
+                buttonTentativa.text = "Resumo"
+                buttonTentativa.setOnClickListener { findNavController().navigate(R.id.fragmentResumo) }
+            } else {
+                buttonTentativa.text = "Próxima palavra"
                 Jogo()
             }
-        }*/
+        }
     }
-
-    fun Jogo(){
+    fun RecebeTexto(): String{
         var texto =  lista.random().toUpperCase()
-     /*   listaPalavrasAcertadas.palavrasUtilizadas.value? = texto
-        listaPalavrasAcertadas.palavrasUtilizadas.observe(viewLifecycleOwner, Observer { texto =
-            it.toString()
-        })*/
+        /*  SalvarLiveData()
+           */
         Toast.makeText(activity?.baseContext, "$texto", Toast.LENGTH_LONG).show()
-        var tentativas = 5
-        var textoOculto = texto
-        var caracteresCertos = "" //concatenar cada caracter que estiver certo
-        var letrasUsadas = ""
+        return texto
+    }
+    /*
+    fun SalvarLiveData(){
+        var texto = RecebeTexto()
 
+        listaPalavrasAcertadas.palavrasUtilizadas.value? = texto
+        listaPalavrasAcertadas.palavrasUtilizadas.observe(viewLifecycleOwner, Observer { texto =
+            it.toString()})
+    }
+    */
+
+    fun FormatarTextoSorteado(texto: String):String{
+        var textoOculto = texto
         for (caracter in texto){
             textoOculto = textoOculto.replace(caracter.toString(), "_ ", true)
         }
         textViewPalavraDaVez.text = textoOculto
-        buttonTentativa.setOnClickListener() {
-            //Ao clicar no botão o método onClick será executado.
-            val letraPorLetra = editTextLetra.text.toString().toUpperCase()
+        return textoOculto
+    }
 
+    fun Jogo(){
+        var texto = RecebeTexto()
+        var textoOculto = FormatarTextoSorteado(texto) //estranho, mas funciona
+        var tentativas = 5
+        var caracteresCertos = "" //concatenar cada caracter que estiver certo
+        var letrasUsadas = ""
+
+        ConfigracaoBotao("tentar")
+        buttonTentativa.setOnClickListener {
+            val letraPorLetra = editTextLetra.text.toString().toUpperCase()
             if (letrasUsadas.contains(letraPorLetra)) {
-                Toast.makeText(activity?.baseContext, "Você já usou esta letra", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity?.baseContext, "Você já usou esta letra", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 letrasUsadas += letraPorLetra
                 textViewLetrasUsadas.text = letrasUsadas
@@ -104,6 +127,7 @@ class FragmentJogo : Fragment() {
                                     "Parabéns!",
                                     Toast.LENGTH_SHORT
                                 ).show()
+
                             } else {
                                 textoOculto =
                                     textoOculto.replace(caracter.toString(), "_ ", true)
@@ -115,8 +139,7 @@ class FragmentJogo : Fragment() {
                                 "Acertou! Vamos a próxima palavra.",
                                 Toast.LENGTH_SHORT
                             ).show()
-
-                           Volta()
+                            ConfigracaoBotao("x")
                         }
                         textViewPalavraDaVez.text = textoOculto
                         editTextLetra.text.clear()
