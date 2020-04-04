@@ -1,7 +1,7 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Model
 
-class DadosModel (
+class DadosModel(
     val nome: String,
-    val palavra: MutableList<String> = mutableListOf()
+    val palavra: String
 
 )

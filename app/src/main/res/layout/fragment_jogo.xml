@@ -47,25 +47,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonResumo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:text="Resumo"
-        app:layout_constraintBottom_toTopOf="@+id/buttonTentativa"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLetra"
-        app:layout_constraintVertical_bias="1.0" />
+
 
     <TextView
         android:id="@+id/textViewErro"
@@ -114,5 +102,13 @@
         app:layout_constraintVertical_bias="0.795"
         app:srcCompat="@android:drawable/ic_menu_search"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonTesteResumo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teste Resumo"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="601dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

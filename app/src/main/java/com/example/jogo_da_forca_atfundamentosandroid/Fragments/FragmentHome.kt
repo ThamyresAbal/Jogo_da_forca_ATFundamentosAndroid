@@ -6,13 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import ViewModel.DadosViewModel
 import android.content.Intent
 import android.widget.Toast
-import androidx.navigation.findNavController
 import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
@@ -45,8 +43,7 @@ class FragmentHome : Fragment() {
             if (editTextNomeJogador.text.isNullOrBlank())
                 Toast.makeText(activity?.baseContext, "Digite seu nome", Toast.LENGTH_SHORT).show()
 
-            palavrasViewModel?.dadoUsuario = DadosModel(
-                editTextNomeJogador.text.toString()
+            palavrasViewModel?.dadoUsuario = DadosModel(editTextNomeJogador.text.toString(),"teste"
             )
            val intent = Intent(activity?.baseContext, InicioActivity::class.java)
             startActivity(intent)

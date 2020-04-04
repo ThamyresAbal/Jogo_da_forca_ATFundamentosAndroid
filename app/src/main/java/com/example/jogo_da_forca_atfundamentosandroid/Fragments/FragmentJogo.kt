@@ -29,10 +29,6 @@ import kotlin.properties.Delegates
 class FragmentJogo : Fragment() {
 
     private lateinit var listaPalavrasAcertadas: DadosViewModel
-    private var mudar by Delegates.notNull<Boolean>()
-
-    private lateinit var jogar: String
-    private lateinit var escolha: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +44,7 @@ class FragmentJogo : Fragment() {
             listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
         }
         Jogo()
+        buttonTesteResumo.setOnClickListener{findNavController().navigate(R.id.fragmentResumo)}
     }
 
     fun ConfigracaoBotao(flag:String){
@@ -65,12 +62,12 @@ class FragmentJogo : Fragment() {
     }
     fun RecebeTexto(): String{
         var texto =  lista.random().toUpperCase()
-        /*  SalvarLiveData()
-           */
+       //   SalvarLiveData()
+
         Toast.makeText(activity?.baseContext, "$texto", Toast.LENGTH_LONG).show()
         return texto
     }
-    /*
+/*
     fun SalvarLiveData(){
         var texto = RecebeTexto()
 
@@ -78,7 +75,7 @@ class FragmentJogo : Fragment() {
         listaPalavrasAcertadas.palavrasUtilizadas.observe(viewLifecycleOwner, Observer { texto =
             it.toString()})
     }
-    */
+*/
 
     fun FormatarTextoSorteado(texto: String):String{
         var textoOculto = texto
@@ -148,6 +145,7 @@ class FragmentJogo : Fragment() {
                         if (tentativas == 0) {
                             textViewPalavraDaVez.text = texto
                             textViewErro.text = "Fim de jogo!"
+                            ConfigracaoBotao("continuar")
                         }
                         editTextLetra.text.clear()
                         Toast.makeText(
