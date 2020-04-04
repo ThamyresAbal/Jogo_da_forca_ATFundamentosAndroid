@@ -15,6 +15,7 @@ import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
 import kotlinx.android.synthetic.main.fragment_resumo.*
+import kotlinx.android.synthetic.main.resumo_recycle.*
 
 /**
  * A simple [Fragment] subclass.
@@ -36,16 +37,9 @@ class FragmentResumo : Fragment() {
         activity?.let {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
 
-            var usuarios = mutableListOf(
-                DadosModel("thi@go.com", "jogo"),
-                DadosModel("thi@go.com", "lol"),
-                DadosModel("thi@go.com", "wwz"),
-                DadosModel("thi@go.com", "luigi"))
-
-
-            var dadosAdapter = DadosRecycleAdapter(usuarios)
-            rcyVwHome.adapter = dadosAdapter
-            rcyVwHome.layoutManager = LinearLayoutManager(context)
+           // var dadosAdapter = DadosRecycleAdapter(palavrasViewModel.)
+         //   rcyVwHome.adapter = dadosAdapter
+          //  rcyVwHome.layoutManager = LinearLayoutManager(context)
 
           //  itemTouchHelper.attachToRecyclerView(rcyVwHome)
 

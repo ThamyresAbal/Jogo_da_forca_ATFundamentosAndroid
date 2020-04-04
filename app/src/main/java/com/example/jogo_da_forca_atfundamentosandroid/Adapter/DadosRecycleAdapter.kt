@@ -23,7 +23,7 @@ class DadosRecycleAdapter(
         val v = LayoutInflater
             .from(parent.context)
             .inflate(
-                R.layout.fragment_resumo,
+                R.layout.resumo_recycle,
                 parent,false
             )
         val dadosViewHolder = DadosViewHolder(v)
