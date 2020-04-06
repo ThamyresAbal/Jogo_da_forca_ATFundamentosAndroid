@@ -35,18 +35,15 @@ class FragmentResumo : Fragment() {
 
         var palavrasViewModel: DadosViewModel? = null
         activity?.let {
-            palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
+            palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)}
 
-           // var dadosAdapter = DadosRecycleAdapter(palavrasViewModel.)
-         //   rcyVwHome.adapter = dadosAdapter
-          //  rcyVwHome.layoutManager = LinearLayoutManager(context)
+        var dadosAdapter = palavrasViewModel?.palavrasUtilizadas?.value?.let { DadosRecycleAdapter(it) }
+        rcyVwHome.adapter = dadosAdapter
+        rcyVwHome.layoutManager = LinearLayoutManager(context)
 
-          //  itemTouchHelper.attachToRecyclerView(rcyVwHome)
-
-            buttonNovoJogo.setOnClickListener{
-                val intent = Intent(activity?.baseContext, MainActivity::class.java)
-                startActivity(intent)
-            }
+        buttonNovoJogo.setOnClickListener{
+            val intent = Intent(activity?.baseContext, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

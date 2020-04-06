@@ -15,7 +15,7 @@ class DadosRecycleAdapter(
 
     class DadosViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val nome : TextView = itemView.TextViewNomeJogador
-        //val palavras : TextView = itemView.TextViewPalavras
+        val palavras : TextView = itemView.textViewPalavras
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DadosViewHolder {
@@ -34,8 +34,8 @@ class DadosRecycleAdapter(
 
     override fun onBindViewHolder(holder: DadosViewHolder,position: Int) {
         val dado = dadosRecycleView[position]
-        holder.nome.text = dado.nome
-        //holder.palavras.text = dado.palavra.get()
+        holder.nome.text = dado.nomeJogador
+        holder.palavras.text = dado.palavrasAcertadas
     }
 }
 

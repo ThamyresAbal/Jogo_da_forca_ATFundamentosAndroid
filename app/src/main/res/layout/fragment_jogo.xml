@@ -71,6 +71,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:autoSizeTextType="uniform"
         android:text="Letras usadas: "
@@ -109,6 +110,7 @@
         android:layout_height="wrap_content"
         android:text="Teste Resumo"
         tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="601dp" />
+        tools:layout_editor_absoluteY="601dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

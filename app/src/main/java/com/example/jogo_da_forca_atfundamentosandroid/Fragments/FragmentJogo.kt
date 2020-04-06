@@ -1,27 +1,21 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Fragments
 
+import ViewModel.DadosViewModel
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.Gravity
+import android.view.Gravity.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProviders
-import ViewModel.DadosViewModel
-import android.content.Intent
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
-import com.example.jogo_da_forca_atfundamentosandroid.MainActivity
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
-
 import com.example.jogo_da_forca_atfundamentosandroid.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_jogo.*
-import kotlin.properties.Delegates
 
 /**
  * A simple [Fragment] subclass.
@@ -37,56 +31,161 @@ class FragmentJogo : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_jogo, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
+
 
         activity?.let {
             listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
+
         }
         Jogo()
-        buttonTesteResumo.setOnClickListener{findNavController().navigate(R.id.fragmentResumo)}
+        buttonTesteResumo.setOnClickListener { findNavController().navigate(R.id.fragmentResumo) }
     }
-
-    fun ConfigracaoBotao(flag:String){
+// PAZ DE ESPÍRITO ^^
+    fun ConfigracaoBotao(flag: String) {
         if (flag.contains("tentar")) {
             buttonTentativa.text = "Tentar"
-        }else{
+        } else {
             if (flag.contains("continuar")) {
                 buttonTentativa.text = "Resumo"
                 buttonTentativa.setOnClickListener { findNavController().navigate(R.id.fragmentResumo) }
             } else {
+                println("mostrar próxima palavra")
                 buttonTentativa.text = "Próxima palavra"
-                Jogo()
+                buttonTentativa.setOnClickListener {
+                    textViewLetrasUsadas.text = ""
+                    Jogo()
+                }
             }
         }
     }
-    fun RecebeTexto(): String{
-        var texto =  lista.random().toUpperCase()
-       //   SalvarLiveData()
 
+    fun RecebeTexto(): String {
+        var texto = lista.random().toUpperCase()
         Toast.makeText(activity?.baseContext, "$texto", Toast.LENGTH_LONG).show()
         return texto
     }
-/*
-    fun SalvarLiveData(){
-        var texto = RecebeTexto()
 
-        listaPalavrasAcertadas.palavrasUtilizadas.value? = texto
-        listaPalavrasAcertadas.palavrasUtilizadas.observe(viewLifecycleOwner, Observer { texto =
-            it.toString()})
+    fun SalvarLiveData(texto: String) {
+        listaPalavrasAcertadas.palavrasUtilizadas.value?.add(DadosModel(texto))
+        listaPalavrasAcertadas.palavrasUtilizadas.observe(
+            viewLifecycleOwner,
+            Observer { it.toString() })
     }
-*/
 
-    fun FormatarTextoSorteado(texto: String):String{
+    fun FormatarTextoSorteado(texto: String): String {
         var textoOculto = texto
-        for (caracter in texto){
+        for (caracter in texto) {
             textoOculto = textoOculto.replace(caracter.toString(), "_ ", true)
         }
         textViewPalavraDaVez.text = textoOculto
         return textoOculto
     }
 
-    fun Jogo(){
+    fun CampoVazio() {
+        if (editTextLetra.text.isNullOrBlank()) {
+            Toast.makeText(activity?.baseContext, "Ops! Digite algo.", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    fun LetrasUsadas(letrasUsadas: String, letraPorLetra: String) {
+        if (letrasUsadas.contains(letraPorLetra)) {
+            Toast.makeText(activity?.baseContext, "Você já usou esta letra", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    fun VerificaTentativa(tentativas: Int, texto: String) {
+        var tentativas = tentativas
+        tentativas -= 1
+
+        if (tentativas == 0) {
+            textViewPalavraDaVez.text = texto
+            textViewErro.text = "Fim de jogo!"
+            ConfigracaoBotao("continuar")
+        } else {
+            editTextLetra.text.clear()
+            Toast.makeText(
+                activity?.baseContext,
+                "Errou! Você tem $tentativas",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    fun VerificaFimDoJogo(textoOculto: String, texto: String) {
+        //Carregando o textoOculto
+        textViewPalavraDaVez.text = textoOculto
+
+        //Limpando a caixa de entrada
+        editTextLetra.text.clear()
+
+        //verificar se acertou todas as letras
+        if (!textoOculto.contains("_ ")) {
+            Toast.makeText(
+                activity?.baseContext,
+                "Acertou!",
+                Toast.LENGTH_SHORT
+            ).show()
+            SalvarLiveData(texto)
+            ConfigracaoBotao("x")
+        }
+    }
+
+    fun Remontagem(caracteresCertos: String, caracter: Char, textoOculto: String): String {
+        var textoOculto = textoOculto
+        //remontando a palavra do jogo mostrando os caracteres certos e ocultando
+        //aqueles que ainda não acertaram
+        if (caracteresCertos.contains(caracter.toString(), true)) {
+            //Verificar para mostrar somente as letras certas
+            //acertou a letra
+            textoOculto = textoOculto.replace(
+                caracter.toString(),
+                caracter.toString(),
+                true
+            )
+            Toast.makeText(
+                activity?.baseContext,
+                "Parabéns!",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            textoOculto =
+                textoOculto.replace(caracter.toString(), "_ ", true)
+        }
+        return textoOculto
+    }
+
+    fun VerificaLetraPorLetra(
+        texto: String,
+        caracteresCertos: String,
+        letraPorLetra: String,
+        textoOculto: String,
+        tentativas: Int
+    ) {
+        var caracteresCertos = caracteresCertos
+        var textoOculto = textoOculto
+
+        //Verifica se a letra digita está na palavra
+        if (texto.contains(letraPorLetra)) {
+
+            caracteresCertos += letraPorLetra
+            textoOculto = texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
+
+            //Percorrendo verificando quais caracteres acertou
+            for (caracter in texto) {
+                Remontagem(caracteresCertos, caracter, textoOculto)
+            }
+            VerificaFimDoJogo(textoOculto, texto)
+        } else {
+            VerificaTentativa(tentativas, texto)
+        }
+    }
+
+    fun Jogo() {
         var texto = RecebeTexto()
         var textoOculto = FormatarTextoSorteado(texto) //estranho, mas funciona
         var tentativas = 5
@@ -96,68 +195,25 @@ class FragmentJogo : Fragment() {
         ConfigracaoBotao("tentar")
         buttonTentativa.setOnClickListener {
             val letraPorLetra = editTextLetra.text.toString().toUpperCase()
+
+            CampoVazio()
+            LetrasUsadas(letrasUsadas, letraPorLetra)
             if (letrasUsadas.contains(letraPorLetra)) {
-                Toast.makeText(activity?.baseContext, "Você já usou esta letra", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
                 letrasUsadas += letraPorLetra
                 textViewLetrasUsadas.text = letrasUsadas
                 if (tentativas > 0) {
-                    if (texto.contains(letraPorLetra)) {
-                        caracteresCertos += letraPorLetra
-                        textoOculto =
-                            texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
-                        //Percorrendo verificando quais caracteres acertou
-                        for (caracter in texto) {
-                            //remontando a palavra do jogo mostrando os caracteres certos e ocultando
-                            //aqueles que ainda não acertaram
-                            if (caracteresCertos.contains(caracter.toString(), true)) {
-                                //Verificar para mostrar somente as letras certas
-                                //acertou a letra
-                                textoOculto = textoOculto.replace(
-                                    caracter.toString(),
-                                    caracter.toString(),
-                                    true
-                                )
-                                Toast.makeText(
-                                    activity?.baseContext,
-                                    "Parabéns!",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                            } else {
-                                textoOculto =
-                                    textoOculto.replace(caracter.toString(), "_ ", true)
-                            }
-                        }
-                        if (!textoOculto.contains("_ ")) {
-                            Toast.makeText(
-                                activity?.baseContext,
-                                "Acertou! Vamos a próxima palavra.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            ConfigracaoBotao("x")
-                        }
-                        textViewPalavraDaVez.text = textoOculto
-                        editTextLetra.text.clear()
-                    } else {
-                        tentativas -= 1
-                        if (tentativas == 0) {
-                            textViewPalavraDaVez.text = texto
-                            textViewErro.text = "Fim de jogo!"
-                            ConfigracaoBotao("continuar")
-                        }
-                        editTextLetra.text.clear()
-                        Toast.makeText(
-                            activity?.baseContext,
-                            "Errou! Você tem $tentativas",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    VerificaLetraPorLetra(
+                        texto,
+                        caracteresCertos,
+                        letraPorLetra,
+                        textoOculto,
+                        tentativas
+                    )
                 }
             }
         }
     }
 }
+
 
 
