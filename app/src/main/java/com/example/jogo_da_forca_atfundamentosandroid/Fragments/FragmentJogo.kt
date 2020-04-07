@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_jogo.*
  */
 class FragmentJogo : Fragment() {
 
-    private lateinit var listaPalavrasAcertadas: DadosViewModel
+    private var listaPalavrasAcertadas: DadosViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +38,11 @@ class FragmentJogo : Fragment() {
 
         activity?.let {
             listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
-
         }
         Jogo()
         buttonTesteResumo.setOnClickListener { findNavController().navigate(R.id.fragmentResumo) }
     }
-// PAZ DE ESPÍRITO ^^
+    // PAZ DE ESPÍRITO ^^
     fun ConfigracaoBotao(flag: String) {
         if (flag.contains("tentar")) {
             buttonTentativa.text = "Tentar"
@@ -52,7 +51,7 @@ class FragmentJogo : Fragment() {
                 buttonTentativa.text = "Resumo"
                 buttonTentativa.setOnClickListener { findNavController().navigate(R.id.fragmentResumo) }
             } else {
-                println("mostrar próxima palavra")
+              //  println("mostrar próxima palavra")
                 buttonTentativa.text = "Próxima palavra"
                 buttonTentativa.setOnClickListener {
                     textViewLetrasUsadas.text = ""
@@ -69,10 +68,9 @@ class FragmentJogo : Fragment() {
     }
 
     fun SalvarLiveData(texto: String) {
-        listaPalavrasAcertadas.palavrasUtilizadas.value?.add(DadosModel(texto))
-        listaPalavrasAcertadas.palavrasUtilizadas.observe(
-            viewLifecycleOwner,
-            Observer { it.toString() })
+        listaPalavrasAcertadas!!.palavrasUtilizadas.value?.add(DadosModel(texto))
+        listaPalavrasAcertadas!!.palavrasUtilizadas.observe( viewLifecycleOwner,
+            Observer { texto })
     }
 
     fun FormatarTextoSorteado(texto: String): String {
@@ -91,14 +89,13 @@ class FragmentJogo : Fragment() {
         }
     }
 
-    fun LetrasUsadas(letrasUsadas: String, letraPorLetra: String) {
-        if (letrasUsadas.contains(letraPorLetra)) {
-            Toast.makeText(activity?.baseContext, "Você já usou esta letra", Toast.LENGTH_SHORT)
-                .show()
-        }
-    }
 
-    fun VerificaTentativa(tentativas: Int, texto: String) {
+    //Rertonar verdadeiro se a letra já foi usada
+    fun LetrasUsadas(letrasUsadas: String, letraPorLetra: String): Boolean {
+        return letrasUsadas.contains(letraPorLetra)
+    }
+    /* ALTEREI AQUI */
+    fun VerificaTentativa(tentativas: Int, texto: String): Int {
         var tentativas = tentativas
         tentativas -= 1
 
@@ -114,6 +111,7 @@ class FragmentJogo : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+        return tentativas
     }
 
     fun VerificaFimDoJogo(textoOculto: String, texto: String) {
@@ -159,32 +157,6 @@ class FragmentJogo : Fragment() {
         return textoOculto
     }
 
-    fun VerificaLetraPorLetra(
-        texto: String,
-        caracteresCertos: String,
-        letraPorLetra: String,
-        textoOculto: String,
-        tentativas: Int
-    ) {
-        var caracteresCertos = caracteresCertos
-        var textoOculto = textoOculto
-
-        //Verifica se a letra digita está na palavra
-        if (texto.contains(letraPorLetra)) {
-
-            caracteresCertos += letraPorLetra
-            textoOculto = texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
-
-            //Percorrendo verificando quais caracteres acertou
-            for (caracter in texto) {
-                Remontagem(caracteresCertos, caracter, textoOculto)
-            }
-            VerificaFimDoJogo(textoOculto, texto)
-        } else {
-            VerificaTentativa(tentativas, texto)
-        }
-    }
-
     fun Jogo() {
         var texto = RecebeTexto()
         var textoOculto = FormatarTextoSorteado(texto) //estranho, mas funciona
@@ -197,23 +169,34 @@ class FragmentJogo : Fragment() {
             val letraPorLetra = editTextLetra.text.toString().toUpperCase()
 
             CampoVazio()
-            LetrasUsadas(letrasUsadas, letraPorLetra)
-            if (letrasUsadas.contains(letraPorLetra)) {
+
+            if (LetrasUsadas(letrasUsadas, letraPorLetra)) {
+                Toast.makeText(
+                    activity?.baseContext,
+                    "Letra já foi usada!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }else{
                 letrasUsadas += letraPorLetra
                 textViewLetrasUsadas.text = letrasUsadas
                 if (tentativas > 0) {
-                    VerificaLetraPorLetra(
-                        texto,
-                        caracteresCertos,
-                        letraPorLetra,
-                        textoOculto,
-                        tentativas
-                    )
+                    //Verifica se a letra digita está na palavra
+                    if (texto.contains(letraPorLetra)) {
+                        caracteresCertos += letraPorLetra
+                        println(caracteresCertos)
+                        textoOculto = texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
+                        //Percorrendo verificando quais caracteres acertou
+                        for (caracter in texto) {
+
+                            textoOculto = Remontagem(caracteresCertos, caracter, textoOculto)
+                        }
+                        println(textoOculto)
+                        VerificaFimDoJogo(textoOculto, texto)
+                    } else {
+                        tentativas = VerificaTentativa(tentativas, texto)
+                    }
                 }
             }
         }
     }
 }
-
-
-

@@ -22,7 +22,6 @@ class InicioActivity : AppCompatActivity() {
 
         val model = ViewModelProviders.of(this)[DadosViewModel::class.java]
 
-
       /*  val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Dicas", Snackbar.LENGTH_LONG)

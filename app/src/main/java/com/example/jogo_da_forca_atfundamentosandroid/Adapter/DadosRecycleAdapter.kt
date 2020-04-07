@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.R
 import kotlinx.android.synthetic.main.resumo_recycle.view.*
 
 class DadosRecycleAdapter(
-    val dadosRecycleView: List<DadosModel>
+    val dadosRecycleView: MutableList<DadosModel>?
 ) :RecyclerView.Adapter<DadosRecycleAdapter.DadosViewHolder>(){
 
     class DadosViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -20,22 +21,26 @@ class DadosRecycleAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DadosViewHolder {
 
-        val v = LayoutInflater
+      /*  val v = LayoutInflater
             .from(parent.context)
             .inflate(
                 R.layout.resumo_recycle,
                 parent,false
-            )
-        val dadosViewHolder = DadosViewHolder(v)
-        return dadosViewHolder
+            )*/
+        val card = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.resumo_recycle, parent, false)
+        return DadosViewHolder(card)
+       // val dadosViewHolder = DadosViewHolder(v)
+       // return dadosViewHolder
     }
 
-    override fun getItemCount(): Int = 1 // dadosRecycleView.size
+    override fun getItemCount(): Int = dadosRecycleView!!.size
 
     override fun onBindViewHolder(holder: DadosViewHolder,position: Int) {
-        val dado = dadosRecycleView[position]
-        holder.nome.text = dado.nomeJogador
-        holder.palavras.text = dado.palavrasAcertadas
+        val dado = dadosRecycleView!![position]
+        holder.nome.text = dado!!.nomeJogador
+        holder.palavras.text = dado!!.palavrasAcertadas
     }
 }
 

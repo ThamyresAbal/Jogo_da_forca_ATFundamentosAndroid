@@ -11,7 +11,6 @@ import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jogo_da_forca_atfundamentosandroid.Adapter.DadosRecycleAdapter
 import com.example.jogo_da_forca_atfundamentosandroid.MainActivity
-import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
 import kotlinx.android.synthetic.main.fragment_resumo.*
@@ -37,13 +36,12 @@ class FragmentResumo : Fragment() {
         activity?.let {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)}
 
-        var dadosAdapter = palavrasViewModel?.palavrasUtilizadas?.value?.let { DadosRecycleAdapter(it) }
+        var dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value)
         rcyVwHome.adapter = dadosAdapter
         rcyVwHome.layoutManager = LinearLayoutManager(context)
 
-        buttonNovoJogo.setOnClickListener{
-            val intent = Intent(activity?.baseContext, MainActivity::class.java)
-            startActivity(intent)
-        }
+      // buttonNovoJogo.setOnClickListener{
+          // chamar o FragmentHome que não está no grafo
+        //}
     }
 }

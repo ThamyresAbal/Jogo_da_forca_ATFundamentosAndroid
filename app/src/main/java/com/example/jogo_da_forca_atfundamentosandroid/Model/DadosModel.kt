@@ -1,11 +1,9 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Model
 
-class DadosModel(
+class DadosModel(){
 
-){
-
-    lateinit var nomeJogador: String
-    lateinit var palavrasAcertadas: String
+    var nomeJogador: String = ""
+    var palavrasAcertadas: String = ""
 
     constructor (palavra: String) : this() {
         this.palavrasAcertadas = palavra

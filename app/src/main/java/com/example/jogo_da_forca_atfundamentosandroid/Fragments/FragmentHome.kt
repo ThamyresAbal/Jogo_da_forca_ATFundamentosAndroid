@@ -38,12 +38,13 @@ class FragmentHome : Fragment() {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
         }
         buttonIniciar.setOnClickListener {
-            if (editTextNomeJogador.text.isNullOrBlank())
+            if (editTextNomeJogador.text.isNullOrBlank()){
                 Toast.makeText(activity?.baseContext, "Digite seu nome", Toast.LENGTH_SHORT).show()
-            palavrasViewModel?.dadoUsuario?.nomeJogador ?: DadosModel(editTextNomeJogador.text.toString())
-
-            val intent = Intent(activity?.baseContext, InicioActivity::class.java)
-            startActivity(intent)
+            }else{
+                val intent = Intent(activity?.baseContext, InicioActivity::class.java)
+                palavrasViewModel!!.dadoUsuario!!.nomeJogador :DadosModel(editTextNomeJogador.text.toString())
+                startActivity(intent)
+            }
         }
     }
 }
