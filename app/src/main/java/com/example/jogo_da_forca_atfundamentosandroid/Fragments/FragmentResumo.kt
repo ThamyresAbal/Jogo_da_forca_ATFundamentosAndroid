@@ -44,36 +44,21 @@ class FragmentResumo : Fragment() {
         var palavrasViewModel: DadosViewModel? = null
         activity?.let {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)}
-       // print(palavrasViewModel!!.dadoUsuario!!.nomeJogador)
-        //val textFim: String = ""
-
-        //TextViewNomeJogador.text = nome.nomeJogador
 
         if (palavrasViewModel!!.palavrasUtilizadas.value!!.isEmpty()){
             Toast.makeText(activity?.baseContext, "eu funciono", Toast.LENGTH_SHORT).show()
             var text = view.findViewById<TextView>(R.id.textViewTextoFim)
-            text.text = "Sorry \\n Clique no botão e tente novamente"
+            text.text = "Sorry \n Clique no botão e tente novamente"
 
         }else {
             val dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value!!)
             rcyVwHome.adapter = dadosAdapter
             rcyVwHome.layoutManager = LinearLayoutManager(context)
         }
+       buttonNovoJogo.setOnClickListener{
 
-
-
-    //   buttonNovoJogo.setOnClickListener{
-          // chamar o FragmentHome que não está no grafo crasha pq o mesmo fragment está na Tabbed no inicio
-        // se colocar no navigation a tab some
-           // findNavController().navigate(R.id.fragmentHome)
-
-           // não funciona-- tela branca e fecha a aplicação
-          // val intent = Intent(activity?.baseContext, MainActivity::class.java)
-           // não funciona-- tela branca e fecha a aplicação
-           //val intent = Intent(activity?.baseContext, InicioActivity::class.java)
-
-
-           //startActivity(intent)
-     //   }
+         val intent = Intent(activity?.baseContext, MainActivity::class.java)
+        startActivity(intent)
+        }
     }
 }
