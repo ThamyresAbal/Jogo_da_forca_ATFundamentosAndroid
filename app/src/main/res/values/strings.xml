@@ -44,4 +44,5 @@
         Ao final será exibido um resumo das partidas e quantas palavras acertou.\n
     </string>
     <string name="home_jogo">Olá!\n\n Seja bem vindo ao jogo da forca. \n\n Digite seu nome para continuar.</string>
+    <string name="Fim_jogo">Sorry \n\n  T.T \n\n Clique o botão e tente novamente.</string>
 </resources>

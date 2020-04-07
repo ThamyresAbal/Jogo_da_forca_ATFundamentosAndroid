@@ -68,9 +68,10 @@ class FragmentJogo : Fragment() {
     }
 
     fun SalvarLiveData(texto: String) {
-        listaPalavrasAcertadas!!.palavrasUtilizadas.value?.add(DadosModel(texto))
+        listaPalavrasAcertadas!!.palavrasUtilizadas.value!!.add(DadosModel("$texto  "))
         listaPalavrasAcertadas!!.palavrasUtilizadas.observe( viewLifecycleOwner,
             Observer { texto })
+
     }
 
     fun FormatarTextoSorteado(texto: String): String {
@@ -183,14 +184,14 @@ class FragmentJogo : Fragment() {
                     //Verifica se a letra digita está na palavra
                     if (texto.contains(letraPorLetra)) {
                         caracteresCertos += letraPorLetra
-                        println(caracteresCertos)
+
                         textoOculto = texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
                         //Percorrendo verificando quais caracteres acertou
                         for (caracter in texto) {
 
                             textoOculto = Remontagem(caracteresCertos, caracter, textoOculto)
                         }
-                        println(textoOculto)
+
                         VerificaFimDoJogo(textoOculto, texto)
                     } else {
                         tentativas = VerificaTentativa(tentativas, texto)

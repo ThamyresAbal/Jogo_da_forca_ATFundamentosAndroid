@@ -8,15 +8,22 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import ViewModel.DadosViewModel
 import android.content.Intent
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jogo_da_forca_atfundamentosandroid.Adapter.DadosRecycleAdapter
 import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
 import com.example.jogo_da_forca_atfundamentosandroid.MainActivity
+import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_resumo.*
 import kotlinx.android.synthetic.main.resumo_recycle.*
+import kotlinx.android.synthetic.main.resumo_recycle.view.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -37,22 +44,36 @@ class FragmentResumo : Fragment() {
         var palavrasViewModel: DadosViewModel? = null
         activity?.let {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)}
+       // print(palavrasViewModel!!.dadoUsuario!!.nomeJogador)
+        //val textFim: String = ""
 
-        var dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value)
-        rcyVwHome.adapter = dadosAdapter
-        rcyVwHome.layoutManager = LinearLayoutManager(context)
+        //TextViewNomeJogador.text = nome.nomeJogador
 
-       buttonNovoJogo.setOnClickListener{
-          // chamar o FragmentHome que não está no grafo
+        if (palavrasViewModel!!.palavrasUtilizadas.value!!.isEmpty()){
+            Toast.makeText(activity?.baseContext, "eu funciono", Toast.LENGTH_SHORT).show()
+            var text = view.findViewById<TextView>(R.id.textViewTextoFim)
+            text.text = "Sorry \\n Clique no botão e tente novamente"
+
+        }else {
+            val dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value!!)
+            rcyVwHome.adapter = dadosAdapter
+            rcyVwHome.layoutManager = LinearLayoutManager(context)
+        }
+
+
+
+    //   buttonNovoJogo.setOnClickListener{
+          // chamar o FragmentHome que não está no grafo crasha pq o mesmo fragment está na Tabbed no inicio
+        // se colocar no navigation a tab some
            // findNavController().navigate(R.id.fragmentHome)
 
-           // não funciona
+           // não funciona-- tela branca e fecha a aplicação
           // val intent = Intent(activity?.baseContext, MainActivity::class.java)
-           // não funciona
+           // não funciona-- tela branca e fecha a aplicação
            //val intent = Intent(activity?.baseContext, InicioActivity::class.java)
 
 
            //startActivity(intent)
-        }
+     //   }
     }
 }
