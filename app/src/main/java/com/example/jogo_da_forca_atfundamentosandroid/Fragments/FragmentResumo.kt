@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import ViewModel.DadosViewModel
 import android.content.Intent
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jogo_da_forca_atfundamentosandroid.Adapter.DadosRecycleAdapter
+import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
 import com.example.jogo_da_forca_atfundamentosandroid.MainActivity
 
 import com.example.jogo_da_forca_atfundamentosandroid.R
@@ -40,8 +42,17 @@ class FragmentResumo : Fragment() {
         rcyVwHome.adapter = dadosAdapter
         rcyVwHome.layoutManager = LinearLayoutManager(context)
 
-      // buttonNovoJogo.setOnClickListener{
+       buttonNovoJogo.setOnClickListener{
           // chamar o FragmentHome que não está no grafo
-        //}
+           // findNavController().navigate(R.id.fragmentHome)
+
+           // não funciona
+          // val intent = Intent(activity?.baseContext, MainActivity::class.java)
+           // não funciona
+           //val intent = Intent(activity?.baseContext, InicioActivity::class.java)
+
+
+           //startActivity(intent)
+        }
     }
 }
