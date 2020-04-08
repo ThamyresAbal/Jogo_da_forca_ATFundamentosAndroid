@@ -42,9 +42,7 @@ class FragmentHome : Fragment() {
                 Toast.makeText(activity?.baseContext, "Digite seu nome", Toast.LENGTH_SHORT).show()
             }else{
                 val intent = Intent(activity?.baseContext, InicioActivity::class.java)
-                var nome = DadosModel()
-                nome.nomeJogador = editTextNomeJogador.text.toString()
-               // palavrasViewModel!!.dadoUsuario!!.nomeJogador :DadosModel(editTextNomeJogador.text.toString())
+                intent.putExtra("nome", editTextNomeJogador.text.toString())
                 startActivity(intent)
             }
         }

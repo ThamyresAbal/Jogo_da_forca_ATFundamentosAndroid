@@ -1,6 +1,8 @@
 package com.example.jogo_da_forca_atfundamentosandroid
 
 import ViewModel.DadosViewModel
+import android.app.SearchManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -21,24 +23,13 @@ class InicioActivity : AppCompatActivity() {
         setContentView(R.layout.activity_inicio)
 
         val model = ViewModelProviders.of(this)[DadosViewModel::class.java]
-
-      /*  val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Dicas", Snackbar.LENGTH_LONG)
-                .setAction("Dicas", null).show()
-            // searchWeb("imagem $texto")
-        }*/
-
+        val nome = intent.getStringExtra("nome")
+        model.dadoUsuario?.nomeJogador = nome
 
     }
+    override fun onBackPressed() {
+        // não chame o super desse método
+    }
 
-    /*fun searchWeb(query: String) {
-        val intent = Intent(Intent.ACTION_WEB_SEARCH).apply {
-            putExtra(SearchManager.QUERY, query)
-        }
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
-        }
-    }*/
 }
 

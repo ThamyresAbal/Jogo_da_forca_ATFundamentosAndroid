@@ -12,5 +12,7 @@ class DadosViewModel() : ViewModel() {
     var palavrasUtilizadas= MutableLiveData<MutableList<DadosModel>>().apply {
         value = mutableListOf() }
 
+
+
 }
 

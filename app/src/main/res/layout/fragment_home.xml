@@ -41,10 +41,10 @@
             android:id="@+id/textView"
             style="@style/textFormat"
             android:layout_marginTop="32dp"
-            android:textAlignment="center"
-            android:textSize="16dp"
             android:autoSizeTextType="uniform"
             android:text="@string/home_jogo"
+            android:textAlignment="center"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/editTextNomeJogador"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -63,17 +63,21 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="175dp"
-            android:layout_height="143dp"
-            android:layout_marginTop="50dp"
-            android:contentDescription="Imagem de uma forca"
-            android:src="@drawable/jogo"
+            android:layout_width="276dp"
+            android:layout_height="170dp"
+            android:src="@drawable/jogo2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" /><![CDATA[
+
+        android:src="@drawable/drawable/jogo.png"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-       </androidx.constraintlayout.widget.ConstraintLayout>
+       ]]>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>

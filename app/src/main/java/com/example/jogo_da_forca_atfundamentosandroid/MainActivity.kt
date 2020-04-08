@@ -1,16 +1,10 @@
 package com.example.jogo_da_forca_atfundamentosandroid
 
-import ViewModel.DadosViewModel
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.ui.main.DeslizePagerAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         tabs.setupWithViewPager(viewPager)
         viewPager.adapter = DeslizePagerAdapter(supportFragmentManager)
 
+    }
+    override fun onBackPressed() {
+        // não chame o super desse método
     }
 }
 

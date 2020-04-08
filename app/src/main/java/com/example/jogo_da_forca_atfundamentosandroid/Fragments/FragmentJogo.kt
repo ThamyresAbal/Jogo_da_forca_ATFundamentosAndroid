@@ -1,6 +1,8 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Fragments
 
 import ViewModel.DadosViewModel
+import android.app.SearchManager
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Gravity.*
@@ -15,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
 import com.example.jogo_da_forca_atfundamentosandroid.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_jogo.*
 
 /**
@@ -40,7 +44,7 @@ class FragmentJogo : Fragment() {
             listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
         }
         Jogo()
-        buttonTesteResumo.setOnClickListener { findNavController().navigate(R.id.fragmentResumo) }
+
     }
     // PAZ DE ESPÍRITO ^^
     fun ConfigracaoBotao(flag: String) {

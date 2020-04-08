@@ -46,14 +46,15 @@ class FragmentResumo : Fragment() {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)}
 
         if (palavrasViewModel!!.palavrasUtilizadas.value!!.isEmpty()){
-            Toast.makeText(activity?.baseContext, "eu funciono", Toast.LENGTH_SHORT).show()
-            var text = view.findViewById<TextView>(R.id.textViewTextoFim)
-            text.text = "Sorry \n Clique no botão e tente novamente"
+
+            textViewTextoFim.text = "Clique no botão e tente novamente"
 
         }else {
+            textViewTextoFim.text = "Clique no botão e tente novamente"
             val dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value!!)
             rcyVwHome.adapter = dadosAdapter
             rcyVwHome.layoutManager = LinearLayoutManager(context)
+
         }
        buttonNovoJogo.setOnClickListener{
 
