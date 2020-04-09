@@ -1,11 +1,7 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Fragments
 
 import ViewModel.DadosViewModel
-import android.app.SearchManager
-import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.view.Gravity.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +13,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
 import com.example.jogo_da_forca_atfundamentosandroid.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_jogo.*
 
 /**
@@ -64,6 +58,16 @@ class FragmentJogo : Fragment() {
             }
         }
     }
+    fun ImagemForca(tentativas: Int){
+
+        when(tentativas){
+            1 ->imageViewForca.setImageResource(R.drawable.icone_hangman_1);
+            2 ->imageViewForca.setImageResource(R.drawable.icone_hangman_2);
+            3 ->imageViewForca.setImageResource(R.drawable.icone_hangman_3);
+            4 ->imageViewForca.setImageResource(R.drawable.icone_hangman_4);
+            5 ->imageViewForca.setImageResource(R.drawable.icone_hangman_5);
+        }
+    }
 
     fun RecebeTexto(): String {
         var texto = lista.random().toUpperCase()
@@ -94,14 +98,20 @@ class FragmentJogo : Fragment() {
         }
     }
 
-
     //Rertonar verdadeiro se a letra já foi usada
     fun LetrasUsadas(letrasUsadas: String, letraPorLetra: String): Boolean {
         return letrasUsadas.contains(letraPorLetra)
     }
-    /* ALTEREI AQUI */
+    fun LetrasErradas( caracteresCertos: String,letraPorLetra: String){
+        if (caracteresCertos != letraPorLetra){
+            textViewLetrasErradas.text = n sei
+        }
+
+    }
+
     fun VerificaTentativa(tentativas: Int, texto: String): Int {
         var tentativas = tentativas
+        ImagemForca(tentativas)
         tentativas -= 1
 
         if (tentativas == 0) {

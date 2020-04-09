@@ -7,22 +7,23 @@
     tools:context=".Fragments.FragmentJogo">
 
     <TextView
-        android:id="@+id/textViewPalavraDaVez"
-        android:layout_width="0dp"
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginRight="32dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textViewPalavraDaVez"
+        android:layout_width="139dp"
+        android:layout_height="33dp"
         android:autoSizeTextType="uniform"
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewForca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.323"
+        app:layout_constraintStart_toEndOf="@+id/imageViewForca" />
 
     <EditText
         android:id="@+id/editTextLetra"
@@ -37,9 +38,7 @@
 
         app:layout_constraintBottom_toTopOf="@+id/buttonTentativa"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonTentativa"
@@ -54,16 +53,16 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-
     <TextView
         android:id="@+id/textViewErro"
-        android:contentDescription="Fim de jogo! Tente novamente."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:layout_marginTop="48dp"
         android:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/textViewPalavraDaVez"
+        android:contentDescription="Fim de jogo! Tente novamente."
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,23 +70,58 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="76dp"
         android:autoSizeTextType="uniform"
         android:text="Letras usadas: "
         android:textColor="#000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPalavraDaVez" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewForca" />
 
     <TextView
         android:id="@+id/textViewLetrasUsadas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
         android:autoSizeTextType="uniform"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPalavraDaVez" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="438dp" />
+
+    <ImageView
+        android:id="@+id/imageViewForca"
+        android:layout_width="176dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/icone_hangman_0"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLetrasUsadas"
+        app:layout_constraintTop_toBottomOf="@+id/textViewErro"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="25dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:autoSizeTextType="uniform"
+        android:text="Letras erradas: "
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textViewLetrasErradas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLetrasUsadas"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
