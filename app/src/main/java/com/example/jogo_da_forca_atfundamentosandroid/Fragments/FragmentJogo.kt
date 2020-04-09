@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_jogo.*
  */
 class FragmentJogo : Fragment() {
 
-    private var listaPalavrasAcertadas: DadosViewModel? = null
+    private var dadosViewModel: DadosViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,7 @@ class FragmentJogo : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         activity?.let {
-            listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
+            dadosViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)
         }
         Jogo()
 
@@ -75,9 +75,19 @@ class FragmentJogo : Fragment() {
     }
 
     fun SalvarLiveData(texto: String) {
-        listaPalavrasAcertadas!!.palavrasUtilizadas.value!!.add(DadosModel("$texto  "))
-        listaPalavrasAcertadas!!.palavrasUtilizadas.observe( viewLifecycleOwner,
-            Observer { texto })
+        var listaAtualizada = dadosViewModel!!.palavrasUtilizadas.value!!
+
+        // Abordagem atual
+        listaAtualizada.add(DadosModel(dadosViewModel?.dadoUsuario!!.nomeJogador, "$texto  "))
+
+        // Outra abordagem
+        dadosViewModel?.dadoUsuario!!.palavrasAcertadas += texto
+
+        dadosViewModel!!.palavrasUtilizadas.value = listaAtualizada //.add(DadosModel("$texto  "))
+        dadosViewModel!!.palavrasUtilizadas.observe( viewLifecycleOwner,
+        Observer {
+            texto
+        })
 
     }
 
@@ -181,11 +191,11 @@ class FragmentJogo : Fragment() {
                 caracter.toString(),
                 true
             )
-            Toast.makeText(
-                activity?.baseContext,
-                "Parabéns!",
-                Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                activity?.baseContext,
+//                "Parabéns!",
+//                Toast.LENGTH_SHORT
+//            ).show()
             ConsoantesVogais(caracter.toString())
         } else {
             textoOculto =

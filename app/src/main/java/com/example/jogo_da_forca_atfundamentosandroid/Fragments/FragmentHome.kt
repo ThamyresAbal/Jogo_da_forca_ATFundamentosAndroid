@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import ViewModel.DadosViewModel
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
 
