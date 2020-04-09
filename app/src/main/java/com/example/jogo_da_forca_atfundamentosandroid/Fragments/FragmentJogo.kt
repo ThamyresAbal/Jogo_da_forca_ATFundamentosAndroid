@@ -33,7 +33,6 @@ class FragmentJogo : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         activity?.let {
             listaPalavrasAcertadas = ViewModelProviders.of(it).get(DadosViewModel::class.java)
         }
@@ -60,12 +59,12 @@ class FragmentJogo : Fragment() {
     }
     fun ImagemForca(tentativas: Int){
 
-        when(tentativas){
-            1 ->imageViewForca.setImageResource(R.drawable.icone_hangman_1);
-            2 ->imageViewForca.setImageResource(R.drawable.icone_hangman_2);
-            3 ->imageViewForca.setImageResource(R.drawable.icone_hangman_3);
-            4 ->imageViewForca.setImageResource(R.drawable.icone_hangman_4);
-            5 ->imageViewForca.setImageResource(R.drawable.icone_hangman_5);
+        return when{
+            tentativas == 4 ->imageViewForca.setImageResource(R.drawable.icone_hangman_1);
+            tentativas == 3 ->imageViewForca.setImageResource(R.drawable.icone_hangman_2);
+            tentativas == 2 ->imageViewForca.setImageResource(R.drawable.icone_hangman_3);
+            tentativas == 1 ->imageViewForca.setImageResource(R.drawable.icone_hangman_4);
+            else ->imageViewForca.setImageResource(R.drawable.icone_hangman_5);
         }
     }
 
@@ -102,16 +101,37 @@ class FragmentJogo : Fragment() {
     fun LetrasUsadas(letrasUsadas: String, letraPorLetra: String): Boolean {
         return letrasUsadas.contains(letraPorLetra)
     }
-    fun LetrasErradas( caracteresCertos: String,letraPorLetra: String){
-        if (caracteresCertos != letraPorLetra){
-            textViewLetrasErradas.text = n sei
+    fun PontosPorPalavra():Boolean{
+        return true
+    }
+    fun PontuacaoFinal(vogais:Int, consoantes: Int){
+        val pontoPalavra = 10
+        var pontoFinal = consoantes + vogais
+        if (!PontosPorPalavra()){
+            pontoFinal + pontoPalavra
+            textViewPontuaçãoTotal.text = pontoFinal.toString()
+        }else{
+            textViewPontuaçãoTotal.text = pontoFinal.toString()
         }
+    }
 
+    fun ConsoantesVogais(letraPorLetra: String){
+        val vogais = "aeiou"
+        var consoantePontos = 0
+        var vogaisPontos = 0
+        if(vogais.toUpperCase().contains(letraPorLetra.toUpperCase())){
+            vogaisPontos += vogaisPontos + 2
+            textViewPontuaçãoVogal.text = vogaisPontos.toString()
+        }else{
+            consoantePontos += consoantePontos + 1
+            textViewPontuaçãoConsoante.text = consoantePontos.toString()
+        }
+        PontuacaoFinal(vogaisPontos, consoantePontos)
     }
 
     fun VerificaTentativa(tentativas: Int, texto: String): Int {
         var tentativas = tentativas
-        ImagemForca(tentativas)
+
         tentativas -= 1
 
         if (tentativas == 0) {
@@ -129,7 +149,7 @@ class FragmentJogo : Fragment() {
         return tentativas
     }
 
-    fun VerificaFimDoJogo(textoOculto: String, texto: String) {
+    fun VerificaFimJogo(textoOculto: String, texto: String) {
         //Carregando o textoOculto
         textViewPalavraDaVez.text = textoOculto
 
@@ -143,16 +163,17 @@ class FragmentJogo : Fragment() {
                 "Acertou!",
                 Toast.LENGTH_SHORT
             ).show()
+            PontosPorPalavra()
             SalvarLiveData(texto)
             ConfigracaoBotao("x")
         }
     }
 
-    fun Remontagem(caracteresCertos: String, caracter: Char, textoOculto: String): String {
+    fun VerificaAcertoLetra(caracteresCertos: String, caracter: Char, textoOculto: String): String {
         var textoOculto = textoOculto
         //remontando a palavra do jogo mostrando os caracteres certos e ocultando
         //aqueles que ainda não acertaram
-        if (caracteresCertos.contains(caracter.toString(), true)) {
+        if (caracteresCertos.contains(caracter.toString())) {
             //Verificar para mostrar somente as letras certas
             //acertou a letra
             textoOculto = textoOculto.replace(
@@ -165,6 +186,7 @@ class FragmentJogo : Fragment() {
                 "Parabéns!",
                 Toast.LENGTH_SHORT
             ).show()
+            ConsoantesVogais(caracter.toString())
         } else {
             textoOculto =
                 textoOculto.replace(caracter.toString(), "_ ", true)
@@ -178,6 +200,7 @@ class FragmentJogo : Fragment() {
         var tentativas = 5
         var caracteresCertos = "" //concatenar cada caracter que estiver certo
         var letrasUsadas = ""
+        var letrasErradas = ""
 
         ConfigracaoBotao("tentar")
         buttonTentativa.setOnClickListener {
@@ -202,13 +225,14 @@ class FragmentJogo : Fragment() {
                         textoOculto = texto //Reiniciar a palavra para reiniciar a verificação dos caracteres
                         //Percorrendo verificando quais caracteres acertou
                         for (caracter in texto) {
-
-                            textoOculto = Remontagem(caracteresCertos, caracter, textoOculto)
+                            textoOculto = VerificaAcertoLetra(caracteresCertos, caracter, textoOculto)
                         }
-
-                        VerificaFimDoJogo(textoOculto, texto)
+                        VerificaFimJogo(textoOculto, texto)
                     } else {
+                        letrasErradas += letraPorLetra
+                        textViewLetrasErradas.text = letrasErradas
                         tentativas = VerificaTentativa(tentativas, texto)
+                        ImagemForca(tentativas)
                     }
                 }
             }
