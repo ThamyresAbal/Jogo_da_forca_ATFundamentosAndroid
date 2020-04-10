@@ -34,7 +34,6 @@ class FragmentResumo : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_resumo, container, false)
     }
 
@@ -46,9 +45,7 @@ class FragmentResumo : Fragment() {
             palavrasViewModel = ViewModelProviders.of(it).get(DadosViewModel::class.java)}
 
         if (palavrasViewModel!!.palavrasUtilizadas.value!!.isEmpty()){
-
             textViewTextoFim.text = "Clique no botão e tente novamente"
-
         }else {
             textViewTextoFim.text = "Clique no botão e tente novamente"
             val dadosAdapter = DadosRecycleAdapter(palavrasViewModel!!.palavrasUtilizadas.value!!)
@@ -56,8 +53,8 @@ class FragmentResumo : Fragment() {
             rcyVwHome.layoutManager = LinearLayoutManager(context)
 
         }
-       buttonNovoJogo.setOnClickListener{
 
+       buttonNovoJogo.setOnClickListener{
          val intent = Intent(activity?.baseContext, MainActivity::class.java)
         startActivity(intent)
         }

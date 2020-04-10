@@ -5,7 +5,9 @@ import android.app.SearchManager
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -24,7 +26,13 @@ class InicioActivity : AppCompatActivity() {
 
         val model = ViewModelProviders.of(this)[DadosViewModel::class.java]
         val nome = intent.getStringExtra("nome")
-        model.dadoUsuario?.nomeJogador = nome
+        model.dadoUsuario.nomeJogador = nome
+
+        val dadosViewModel = ViewModelProviders.of(this).get(DadosViewModel::class.java)
+        dadosViewModel!!.palavrasUtilizadas.observe( this,
+            Observer {
+                Log.i("Observe", "PalavrasUtilizadas: ${it}")
+            })
 
     }
     override fun onBackPressed() {

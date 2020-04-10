@@ -7,7 +7,7 @@ import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 
 class DadosViewModel() : ViewModel() {
 
-    var dadoUsuario: DadosModel? = null
+    var dadoUsuario = DadosModel()
 
     var palavrasUtilizadas= MutableLiveData<MutableList<DadosModel>>().apply {
         value = mutableListOf() }
