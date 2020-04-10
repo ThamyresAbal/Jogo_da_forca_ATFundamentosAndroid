@@ -1,6 +1,7 @@
 package com.example.jogo_da_forca_atfundamentosandroid.Fragments
 
 import ViewModel.DadosViewModel
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.example.jogo_da_forca_atfundamentosandroid.InicioActivity
 import com.example.jogo_da_forca_atfundamentosandroid.Model.DadosModel
 import com.example.jogo_da_forca_atfundamentosandroid.Model.lista
 import com.example.jogo_da_forca_atfundamentosandroid.R
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_jogo.*
 
 /**
@@ -74,21 +77,25 @@ class FragmentJogo : Fragment() {
         return texto
     }
 
-    fun SalvarLiveData(texto: String) {
+    fun SalvarViewModel(texto: String) {
         var listaAtualizada = dadosViewModel!!.palavrasUtilizadas.value!!
-
         // Abordagem atual
-        listaAtualizada.add(DadosModel(dadosViewModel?.dadoUsuario!!.nomeJogador, "$texto  "))
+        listaAtualizada.add(DadosModel(dadosViewModel?.dadosJogo!!.nomeJogador, "$texto "))
+
 
         // Outra abordagem
-        dadosViewModel?.dadoUsuario!!.palavrasAcertadas += texto
-
+        dadosViewModel?.dadosJogo!!.palavrasAcertadas += texto
         dadosViewModel!!.palavrasUtilizadas.value = listaAtualizada //.add(DadosModel("$texto  "))
-        dadosViewModel!!.palavrasUtilizadas.observe( viewLifecycleOwner,
-        Observer {
-            texto
-        })
 
+    }
+    fun SalvarPontosPartida(pontosPorconsoantes: Int, pontosPorVogais: Int, pontosPorPartida:Int) {
+        val intent = Intent(activity?.baseContext, InicioActivity::class.java)
+        intent.putExtra("pontosPorconsoantes", pontosPorconsoantes)
+        intent.putExtra("pontosPorVogais", pontosPorVogais)
+        intent.putExtra("pontosPartida", pontosPorPartida)
+        //intent.putExtra("totalPontos", pontosPorconsoantes)
+
+        startActivity(intent)
     }
 
     fun FormatarTextoSorteado(texto: String): String {
@@ -107,14 +114,13 @@ class FragmentJogo : Fragment() {
         }
     }
 
-    //Rertonar verdadeiro se a letra já foi usada
     fun LetrasUsadas(letrasUsadas: String, letraPorLetra: String): Boolean {
         return letrasUsadas.contains(letraPorLetra)
     }
     fun PontosPorPalavra():Boolean{
         return true
     }
-    fun PontuacaoFinal(vogais:Int, consoantes: Int){
+    fun PontuacaoPartida(vogais:Int, consoantes: Int){
         val pontoPalavra = 10
         var pontoFinal = consoantes + vogais
         if (!PontosPorPalavra()){
@@ -123,6 +129,7 @@ class FragmentJogo : Fragment() {
         }else{
             textViewPontuaçãoTotal.text = pontoFinal.toString()
         }
+        SalvarPontosPartida(consoantes, vogais, pontoFinal)
     }
 
     fun ConsoantesVogais(letraPorLetra: String){
@@ -136,7 +143,7 @@ class FragmentJogo : Fragment() {
             consoantePontos += consoantePontos + 1
             textViewPontuaçãoConsoante.text = consoantePontos.toString()
         }
-        PontuacaoFinal(vogaisPontos, consoantePontos)
+        PontuacaoPartida(vogaisPontos, consoantePontos)
     }
 
     fun VerificaTentativa(tentativas: Int, texto: String): Int {
@@ -174,7 +181,7 @@ class FragmentJogo : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
             PontosPorPalavra()
-            SalvarLiveData(texto)
+            SalvarViewModel(texto)
             ConfigracaoBotao("x")
         }
     }
